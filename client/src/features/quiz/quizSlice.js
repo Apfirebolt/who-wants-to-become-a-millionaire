@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import quizService from "./quizService";
 
 const initialState = {
-  quizs: [],
+  quizes: [],
   quiz: {},
   isError: false,
   isSuccess: false,
@@ -11,7 +11,7 @@ const initialState = {
 };
 
 // Create new quiz
-export const createquiz = createAsyncThunk(
+export const createQuiz = createAsyncThunk(
   "quizes/create",
   async (quizData, thunkAPI) => {
     try {
@@ -124,14 +124,14 @@ export const quizSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createquiz.pending, (state) => {
+      .addCase(createQuiz.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createquiz.fulfilled, (state) => {
+      .addCase(createQuiz.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
       })
-      .addCase(createquiz.rejected, (state, action) => {
+      .addCase(createQuiz.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
@@ -141,7 +141,7 @@ export const quizSlice = createSlice({
       })
       .addCase(getQuizes.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.quizs = action.payload;
+        state.quizes = action.payload;
       })
       .addCase(getQuizes.rejected, (state, action) => {
         state.isLoading = false;

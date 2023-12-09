@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { toast } from 'react-toastify'
-const API_URL = 'http://localhost:8000/quiz/'
+const API_URL = 'http://localhost:8000/api/quiz'
 
 // Create new quiz
 const createQuiz = async (quizData, token) => {
@@ -31,6 +31,7 @@ const getQuizes = async (token) => {
       },
     }
     const response = await axios.get(API_URL, config)
+    console.log('Response data ', response.data)
     return response.data
   } catch (err) {
     let errorMessage = 'Something went wrong'

@@ -61,6 +61,8 @@ class ListQuestionSerializer(serializers.ModelSerializer):
 
 
 class ListQuizSerializer(serializers.ModelSerializer):
+
+    questions = ListQuestionSerializer(many=True, read_only=True)
     
     class Meta:
         model = Quiz

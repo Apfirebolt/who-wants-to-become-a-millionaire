@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getQuestions } from "../features/question/questionSlice";
 import Loader from "../components/Loader";
-import QuestionCard from "../components/ProjectCard";
+import QuestionCard from "../components/QuestionCard";
 
 const Question = () => {
   const { questions, isLoading } = useSelector((state) => state.question);
@@ -26,11 +26,7 @@ const Question = () => {
       </div>
       
       <div className="grid grid-cols-7 px-2 gap-2 my-3">
-        {questions.map((item, index) => {
-          return (
-            <QuestionCard key={index} question={item} />
-          );
-        })}
+        
       </div>
     </div>
   );

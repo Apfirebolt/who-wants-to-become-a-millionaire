@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { toast } from 'react-toastify'
-const API_URL = 'http://localhost:8000/question/'
+const API_URL = 'http://localhost:8000/api/question/'
 
 // Create new question
 const createQuestion = async (questionData, token) => {
