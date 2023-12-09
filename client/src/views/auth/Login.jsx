@@ -24,9 +24,9 @@ const Login = () => {
     }
 
     // Redirect when logged in
-    // if (isSuccess || user) {
-    //   navigate('/')
-    // }
+    if (isSuccess || user) {
+      navigate('/')
+    }
 
     dispatch(reset())
   }, [isError, isSuccess, user, message, navigate, dispatch])

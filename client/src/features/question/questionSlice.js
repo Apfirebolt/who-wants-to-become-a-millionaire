@@ -11,7 +11,7 @@ const initialState = {
 };
 
 // Create new question
-export const createquestion = createAsyncThunk(
+export const createQuestion = createAsyncThunk(
   "questions/create",
   async (questionData, thunkAPI) => {
     try {
@@ -31,7 +31,7 @@ export const createquestion = createAsyncThunk(
 );
 
 // Get Multiple questions
-export const getquestions = createAsyncThunk(
+export const getQuestions = createAsyncThunk(
   "questions/getQuestion",
   async (_, thunkAPI) => {
     try {
@@ -124,26 +124,26 @@ export const questionSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createquestion.pending, (state) => {
+      .addCase(createQuestion.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createquestion.fulfilled, (state) => {
+      .addCase(createQuestion.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
       })
-      .addCase(createquestion.rejected, (state, action) => {
+      .addCase(createQuestion.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(getquestions.pending, (state) => {
+      .addCase(getQuestions.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getquestions.fulfilled, (state, action) => {
+      .addCase(getQuestions.fulfilled, (state, action) => {
         state.isLoading = false;
         state.questions = action.payload;
       })
-      .addCase(getquestions.rejected, (state, action) => {
+      .addCase(getQuestions.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

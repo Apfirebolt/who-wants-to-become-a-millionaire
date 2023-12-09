@@ -7,6 +7,8 @@ import Home from "./views/Home";
 import Admin from "./views/Admin";
 import Login from "./views/auth/Login";
 import Register from "./views/auth/Register";
+import Question from "./views/Question";
+import Quiz from "./views/Quiz";
 
 
 const App = () => {
@@ -18,6 +20,8 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/question" element={<Question />} />
+        <Route path="/quiz" element={<Quiz />} />
       </Routes>
       <Footer />
       <ToastContainer />
