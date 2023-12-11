@@ -58,6 +58,18 @@ class ListQuestionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class QuestionSerializer(serializers.ModelSerializer):
+               
+    class Meta:
+        model = Question
+        fields = '__all__'
+
+    def create(self, validated_data):
+        question = super(QuestionSerializer, self).create(validated_data)
+        question.save()
+        return question
+
+
 class ListQuizSerializer(serializers.ModelSerializer):
 
     questions = ListQuestionSerializer(many=True, read_only=True)
@@ -65,3 +77,16 @@ class ListQuizSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quiz
         fields = '__all__'
+
+
+class QuizSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Quiz
+        fields = '__all__'
+
+    
+    def create(self, validated_data):
+        quiz = super(QuizSerializer, self).create(validated_data)
+        quiz.save()
+        return quiz
