@@ -12,9 +12,9 @@ urlpatterns = [
     path('users', ListCustomUsersApiView.as_view(), name='list-users'),
     path('quiz', ListQuizesApi.as_view(), name='list-quizes'),
     path('quiz/create', CreateQuizApi.as_view(), name='create-quiz'),
-    path('quiz/<int:pk>', UpdateDeleteQuizApi.as_view(), name='update-delete-quiz'),
+    path('quiz/<int:pk>', UpdateDeleteQuizApi.as_view(), name='crud-quiz'),
     path('questions', ListQuestionsApi.as_view(), name='list-questions'),
     path('questions/create', CreateQuestionApi.as_view(), name='create-question'),
-    path('questions/<int:pk>', UpdateDeleteQuestionApi.as_view(), name='update-delete-question'),
+    path('questions/<int:pk>', UpdateDeleteQuestionApi.as_view(), name='crud-question'),
 
 ]

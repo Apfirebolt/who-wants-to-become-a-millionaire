@@ -29,10 +29,15 @@ class ListQuestionsApi(ListAPIView):
 class CreateQuestionApi(CreateAPIView):
     serializer_class = QuestionSerializer
     model = Question
+    permission_classes = (IsAuthenticated,)
+
 
 class UpdateDeleteQuestionApi(RetrieveUpdateDestroyAPIView):
     serializer_class = QuestionSerializer
     model = Question
+    permission_classes = (IsAuthenticated,)
+    lookup_field = 'pk'
+
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
@@ -45,10 +50,14 @@ class ListQuizesApi(ListAPIView):
 class CreateQuizApi(CreateAPIView):
     serializer_class = QuizSerializer
     model = Quiz
+    permission_classes = (IsAuthenticated,)
 
 class UpdateDeleteQuizApi(RetrieveUpdateDestroyAPIView):
     serializer_class = QuizSerializer
     model = Quiz
+    permission_classes = (IsAuthenticated,)
+    lookup_field = 'pk'
+    
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
