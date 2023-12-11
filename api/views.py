@@ -34,7 +34,7 @@ class CreateQuestionApi(CreateAPIView):
 
 class UpdateDeleteQuestionApi(RetrieveUpdateDestroyAPIView):
     serializer_class = QuestionSerializer
-    model = Question
+    queryset = Question.objects.all()
     permission_classes = (IsAuthenticated,)
     lookup_field = 'pk'
 
@@ -54,10 +54,10 @@ class CreateQuizApi(CreateAPIView):
 
 class UpdateDeleteQuizApi(RetrieveUpdateDestroyAPIView):
     serializer_class = QuizSerializer
-    model = Quiz
+    queryset = Quiz.objects.all()
     permission_classes = (IsAuthenticated,)
     lookup_field = 'pk'
-    
+
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
