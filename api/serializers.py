@@ -14,11 +14,9 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         
         data = super(CustomTokenObtainPairSerializer, self).validate(attrs)
         # Custom data 
-        data.update({'userData': {
-            'email': self.user.email,
-            'username': self.user.username,
-            'id': self.user.id
-        }})
+        data['username'] = self.user.username
+        data['email'] = self.user.email
+        data['id'] = self.user.id
         return data
 
 

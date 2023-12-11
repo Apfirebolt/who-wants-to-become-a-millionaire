@@ -4,7 +4,7 @@ import { getQuizes } from "../features/quiz/quizSlice";
 import Loader from "../components/Loader";
 import QuizCard from "../components/QuizCard";
 
-const Project = () => {
+const Quiz = () => {
   const { quizes, isLoading } = useSelector((state) => state.quiz);
 
   const dispatch = useDispatch();
@@ -63,4 +63,4 @@ const Project = () => {
   );
 };
 
-export default Project;
+export default Quiz;

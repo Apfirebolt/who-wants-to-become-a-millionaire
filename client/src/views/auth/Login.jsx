@@ -24,9 +24,11 @@ const Login = () => {
     }
 
     // Redirect when logged in
-    // if (isSuccess || user) {
-    //   navigate('/')
-    // }
+    if (isSuccess || user) {
+      navigate('/')
+    }
+
+    console.log('Is success ', isSuccess)
 
     dispatch(reset());
   }, [isError, isSuccess, user, message, navigate, dispatch]);
