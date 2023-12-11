@@ -59,7 +59,7 @@ const Register = () => {
               className="mx-auto my-3"
             >
               <div className="grid md:grid-cols-2 gap-4">
-                <div className="mb-4">
+                <div className="mb-2">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
                     htmlFor="email"
@@ -74,11 +74,11 @@ const Register = () => {
                     {...register("email", { required: true })}
                   />
                   {errors.email && (
-                    <p className="text-red-500 mt-2">Email is required.</p>
+                    <p className="text-red-500 mt-1">Email is required.</p>
                   )}
                 </div>
 
-                <div className="mb-4">
+                <div className="mb-2">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
                     htmlFor="username"
@@ -93,11 +93,11 @@ const Register = () => {
                     {...register("username", { required: true })}
                   />
                   {errors.username && (
-                    <p className="text-red-500 mt-2">Username is required.</p>
+                    <p className="text-red-500 mt-1">Username is required.</p>
                   )}
                 </div>
 
-                <div className="mb-4">
+                <div className="mb-2">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
                     htmlFor="password"
@@ -112,11 +112,11 @@ const Register = () => {
                     {...register("password", { required: true })}
                   />
                   {errors.password && (
-                    <p className="text-red-500 mt-2">Password is required.</p>
+                    <p className="text-red-500 mt-1">Password is required.</p>
                   )}
                 </div>
                 
-                <div className="mb-4">
+                <div className="mb-2">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
                     htmlFor="firstName"
@@ -131,11 +131,11 @@ const Register = () => {
                     {...register("firstName", { required: true })}
                   />
                   {errors.firstName && (
-                    <p className="text-red-500 mt-2">First Name is required.</p>
+                    <p className="text-red-500 mt-1">First Name is required.</p>
                   )}
                 </div>
 
-                <div className="mb-4">
+                <div className="mb-2">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
                     htmlFor="lastName"
@@ -150,12 +150,12 @@ const Register = () => {
                     {...register("lastName", { required: true })}
                   />
                   {errors.lastName && (
-                    <p className="text-red-500 mt-2">Last Name is required.</p>
+                    <p className="text-red-500 mt-1">Last Name is required.</p>
                   )}
                 </div>
               </div>
               <input
-                className="shadow cursor-pointer bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                className="mt-2 shadow cursor-pointer bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                 type="submit"
                 value="Sign Up"
               />
