@@ -65,8 +65,8 @@ const navigation = {
     },
   ],
   pages: [
-    { name: "Quiz", path: "quiz" },
-    { name: "Take-Quiz", path: "take-quiz" },
+    { name: "Quiz", path: "login" },
+    { name: "Take-Quiz", path: "register" },
     { name: "Question", path: "question" },
   ],
 };
@@ -351,7 +351,18 @@ const Header = () => {
                       Sign Out
                     </button>
                     <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+
+                    <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                      <Link
+                        to="/quiz"
+                        className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                      >
+                        Quiz
+                      </Link>
+                      <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                    </div>
                   </div>
+                  
                 ) : (
                   <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                     <Link

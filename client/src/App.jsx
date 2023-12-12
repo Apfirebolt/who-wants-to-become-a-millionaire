@@ -3,7 +3,7 @@ import { ToastContainer } from 'react-toastify';
 
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-// import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./components/PrivateRoute";
 import Home from "./views/Home";
 import Admin from "./views/Admin";
 import Login from "./views/auth/Login";
@@ -22,7 +22,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<Admin />} />
-        {/* <Route path="/question" element={<PrivateRoute />}>
+        <Route path="/question" element={<PrivateRoute />}>
           <Route path="/question" element={<Question />} />
         </Route>
         <Route path="/quiz" element={<PrivateRoute />}>
@@ -30,7 +30,7 @@ const App = () => {
         </Route>
         <Route path="/take-quiz" element={<PrivateRoute />}>
           <Route path="/take-quiz" element={<TakeQuiz />} />
-        </Route> */}
+        </Route>
       </Routes>
       <Footer />
       <ToastContainer />

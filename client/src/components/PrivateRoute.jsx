@@ -5,8 +5,11 @@ import Loader from './Loader'
 const PrivateRoute = () => {
   const { loggedIn, checkingStatus } = useAuthStatus()
 
+  if (checkingStatus) {
+    return <Loader />
+  }
 
-  return Outlet
+  return loggedIn ? <Outlet /> : <Navigate to='/login' />
 }
 
 export default PrivateRoute

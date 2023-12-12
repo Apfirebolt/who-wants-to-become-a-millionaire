@@ -28,8 +28,6 @@ const Login = () => {
       navigate('/')
     }
 
-    console.log('Is success ', isSuccess)
-
     dispatch(reset());
   }, [isError, isSuccess, user, message, navigate, dispatch]);
 
