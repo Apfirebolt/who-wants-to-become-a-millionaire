@@ -65,8 +65,9 @@ const navigation = {
     },
   ],
   pages: [
-    { name: "Company", href: "#" },
-    { name: "Stores", href: "#" },
+    { name: "Quiz", path: "quiz" },
+    { name: "Take-Quiz", path: "take-quiz" },
+    { name: "Question", path: "question" },
   ],
 };
 
@@ -129,12 +130,12 @@ const Header = () => {
               <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                 {navigation.pages.map((page) => (
                   <div key={page.name} className="flow-root">
-                    <a
-                      href={page.href}
+                    <Link
+                      to={page.path}
                       className="-m-2 p-2 block font-medium text-gray-900"
                     >
                       {page.name}
-                    </a>
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -329,13 +330,13 @@ const Header = () => {
                   ))}
 
                   {navigation.pages.map((page) => (
-                    <a
+                    <Link
                       key={page.name}
-                      href={page.href}
+                      href={page.path}
                       className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
                     >
                       {page.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </Popover.Group>
