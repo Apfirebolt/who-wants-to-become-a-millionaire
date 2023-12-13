@@ -1,21 +1,42 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getQuizes } from "../features/quiz/quizSlice";
+import { getQuizes, addQuiz } from "../features/quiz/quizSlice";
 import Loader from "../components/Loader";
 import QuizCard from "../components/QuizCard";
+import AddQuiz from "../components/AddQuiz";
+
 
 const Quiz = () => {
   const { quizes, isLoading } = useSelector((state) => state.quiz);
 
   const dispatch = useDispatch();
+  const [isOpen, setIsOpened] = useState(false);
 
   useEffect(() => {
     dispatch(getQuizes());
   }, [dispatch]);
 
+  useEffect(() => {
+    console.log(quizes);
+  }, [quizes]);
+
   if (isLoading) {
     return <Loader />;
   }
+
+  const closeModal = () => {
+    setIsOpened(false);
+  }
+
+  const uploadQuiz = () => {
+    setIsOpened(true);
+  }
+
+  const addQuizUtil = async (data) => {
+    dispatch(addQuiz(data));
+    dispatch(getQuizes());
+    setIsOpened(false);
+  } 
 
   return (
     <div className="bg-gray-50">
@@ -47,15 +68,23 @@ const Quiz = () => {
           </div>
         </div>
 
-        <div className="mx-auto mt-2 w-1/5 px-3 py-2 text-center">
+        <div className="mx-auto flex justify-center mt-2 px-3 py-2">
           <a
             href="#"
-            className="block bg-gray-200 border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto"
+            className="block mx-1 bg-gray-200 border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto"
           >
             Take Quiz
           </a>
+          <button
+            onClick={uploadQuiz}
+            className="block mx-1 bg-gray-200 border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto"
+          >
+            Upload Quiz
+          </button>
         </div>
       </section>
+
+      <AddQuiz isOpen={isOpen} closeModal={closeModal} addQuiz={addQuizUtil} />
 
       {/* Featured section */}
     </div>

@@ -11,12 +11,12 @@ const initialState = {
 };
 
 // Create new quiz
-export const createQuiz = createAsyncThunk(
+export const addQuiz = createAsyncThunk(
   "quizes/create",
   async (quizData, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.access_token;
-      return await quizService.createQuiz(quizData, token);
+      const token = thunkAPI.getState().auth.user.access;
+      return await quizService.addQuiz(quizData, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -35,7 +35,7 @@ export const getQuizes = createAsyncThunk(
   "quizs/getquiz",
   async (_, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.access_token;
+      const token = thunkAPI.getState().auth.user.access;
       return await quizService.getQuizes(token);
     } catch (error) {
       const message =
@@ -56,7 +56,7 @@ export const getQuiz = createAsyncThunk(
   'quizes/get',
   async (quizId, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.access_token
+      const token = thunkAPI.getState().auth.user.access
       return await quizService.getQuiz(quizId, token)
     } catch (error) {
       const message =
@@ -76,7 +76,7 @@ export const updateQuiz = createAsyncThunk(
   "quizs/update",
   async (quizData, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.access_token;
+      const token = thunkAPI.getState().auth.user.access;
       return await quizService.updateQuiz(quizData, token);
     } catch (error) {
       const message =
@@ -96,7 +96,7 @@ export const deleteQuiz = createAsyncThunk(
   "quizes/delete",
   async (quizId, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.access_token;
+      const token = thunkAPI.getState().auth.user.access;
       return await quizService.deleteQuiz(quizId, token);
     } catch (error) {
       const message =
@@ -124,14 +124,15 @@ export const quizSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createQuiz.pending, (state) => {
+      .addCase(addQuiz.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createQuiz.fulfilled, (state) => {
+      .addCase(addQuiz.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
+        getQuizes()
       })
-      .addCase(createQuiz.rejected, (state, action) => {
+      .addCase(addQuiz.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

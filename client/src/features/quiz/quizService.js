@@ -3,14 +3,14 @@ import { toast } from 'react-toastify'
 const API_URL = 'http://localhost:8000/api/quiz'
 
 // Create new quiz
-const createQuiz = async (quizData, token) => {
+const addQuiz = async (quizData, token) => {
   try {
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     }
-    const response = await axios.post(API_URL, quizData, config)
+    const response = await axios.post(API_URL + '/create', quizData, config)
   
     return response.data
   } catch (err) {
@@ -31,7 +31,6 @@ const getQuizes = async (token) => {
       },
     }
     const response = await axios.get(API_URL, config)
-    console.log('Response data ', response.data)
     return response.data
   } catch (err) {
     let errorMessage = 'Something went wrong'
@@ -107,7 +106,7 @@ const deleteQuiz = async (quizId, token) => {
 }
 
 const questionService = {
-  createQuiz,
+  addQuiz,
   getQuiz,
   updateQuiz,
   deleteQuiz,
