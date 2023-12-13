@@ -93,7 +93,7 @@ const deleteQuiz = async (quizId, token) => {
       },
     }
   
-    const response = await axios.delete(API_URL + quizId, config)
+    const response = await axios.delete(API_URL + '/' + quizId, config)
   
     return response.data
   } catch (err) {

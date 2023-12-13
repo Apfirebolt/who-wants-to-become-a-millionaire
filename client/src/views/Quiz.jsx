@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getQuizes, addQuiz } from "../features/quiz/quizSlice";
+import { getQuizes, addQuiz, deleteQuiz } from "../features/quiz/quizSlice";
 import Loader from "../components/Loader";
 import QuizCard from "../components/QuizCard";
 import AddQuiz from "../components/AddQuiz";
+import ConfirmModal from "../components/ConfirmModal";
 
 
 const Quiz = () => {
@@ -11,6 +12,9 @@ const Quiz = () => {
 
   const dispatch = useDispatch();
   const [isOpen, setIsOpened] = useState(false);
+  const [selectedQuiz, setSelectedQuiz] = useState(null);
+  const [isConfirmModalOpened, setIsConfirmModalOpened] = useState(false);
+  const [message, setConfirmMessage] = useState("");
 
   useEffect(() => {
     dispatch(getQuizes());
@@ -28,15 +32,31 @@ const Quiz = () => {
     setIsOpened(false);
   }
 
+  const closeMessageModal = () => {
+    setIsConfirmModalOpened(false);
+  }
+
   const uploadQuiz = () => {
     setIsOpened(true);
   }
 
   const addQuizUtil = async (data) => {
-    dispatch(addQuiz(data));
+    await dispatch(addQuiz(data));
     dispatch(getQuizes());
     setIsOpened(false);
-  } 
+  }
+  
+  const deleteQuizUtil = async () => {
+    await dispatch(deleteQuiz(selectedQuiz.id));
+    setIsConfirmModalOpened(false);
+    dispatch(getQuizes());
+  }
+
+  const deleteQuizHandler = (quiz) => {
+    setSelectedQuiz(quiz);
+    setConfirmMessage("Are you sure you want to delete this quiz?");
+    setIsConfirmModalOpened(true);
+  }
 
   return (
     <div className="bg-gray-50">
@@ -63,7 +83,7 @@ const Quiz = () => {
 
             <div className="grid grid-cols-1 px-2 gap-2 my-3">
               {quizes &&
-                quizes.map((quiz) => <QuizCard key={quiz.id} quiz={quiz} />)}
+                quizes.map((quiz) => <QuizCard key={quiz.id} quiz={quiz} deleteQuiz={deleteQuizHandler} />)}
             </div>
           </div>
         </div>
@@ -85,7 +105,7 @@ const Quiz = () => {
       </section>
 
       <AddQuiz isOpen={isOpen} closeModal={closeModal} addQuiz={addQuizUtil} />
-
+      <ConfirmModal isOpen={isConfirmModalOpened} message={message} closeModal={closeMessageModal} confirmAction={deleteQuizUtil} />         
       {/* Featured section */}
     </div>
   );

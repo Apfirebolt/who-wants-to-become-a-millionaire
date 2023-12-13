@@ -130,7 +130,6 @@ export const quizSlice = createSlice({
       .addCase(addQuiz.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
-        getQuizes()
       })
       .addCase(addQuiz.rejected, (state, action) => {
         state.isLoading = false;
