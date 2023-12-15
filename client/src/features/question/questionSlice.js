@@ -15,7 +15,7 @@ export const createQuestion = createAsyncThunk(
   "questions/create",
   async (questionData, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.access_token;
+      const token = thunkAPI.getState().auth.user.access;
       return await questionService.createQuestion(questionData, token);
     } catch (error) {
       const message =
@@ -179,7 +179,6 @@ export const questionSlice = createSlice({
       .addCase(deleteQuestion.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
-        getquestions()
       })
       .addCase(deleteQuestion.rejected, (state, action) => {
         state.isLoading = false;

@@ -10,7 +10,7 @@ const createQuestion = async (questionData, token) => {
         Authorization: `Bearer ${token}`,
       },
     }
-    const response = await axios.post(API_URL, questionData, config)
+    const response = await axios.post(API_URL + '/create', questionData, config)
   
     return response.data
   } catch (err) {
@@ -93,7 +93,7 @@ const deleteQuestion = async (questionId, token) => {
       },
     }
   
-    const response = await axios.delete(API_URL + questionId, config)
+    const response = await axios.delete(API_URL + '/' + questionId, config)
   
     return response.data
   } catch (err) {

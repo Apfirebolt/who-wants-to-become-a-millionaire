@@ -1,21 +1,55 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getQuestions } from "../features/question/questionSlice";
+import { getQuestions, createQuestion, updateQuestion, deleteQuestion } from "../features/question/questionSlice";
 import Loader from "../components/Loader";
 import QuestionCard from "../components/QuestionCard";
 import AddQuestion from "../components/AddQuestion";
+import ConfirmModal from "../components/ConfirmModal";
+
 
 const Question = () => {
   const { questions, isLoading } = useSelector((state) => state.question);
 
   const dispatch = useDispatch();
   const [isOpen, setIsOpened] = useState(false);
+  const [confirmMessage, setConfirmMessage] = useState("");
+  const [isConfirmModalOpened, setIsConfirmModalOpened] = useState(false);
+  const [selectedQuestion, setSelectedQuestion] = useState(null);
   
   const closeModal = () => {
     setIsOpened(false);
   }
 
   const openModal = () => {
+    setIsOpened(true);
+  }
+
+  const addQuestionUtil = async (data) => {
+    await dispatch(createQuestion(data));
+    dispatch(getQuestions());
+    setIsOpened(false);
+  }
+
+  const updateQuestionUtil = async (data) => {
+    await dispatch(updateQuestion(data));
+    dispatch(getQuestions());
+    setIsOpened(false);
+  }
+
+  const deleteQuestionUtil = async () => {
+    await dispatch(deleteQuestion(selectedQuestion.id));
+    setIsConfirmModalOpened(false);
+    dispatch(getQuestions());
+  }
+
+  const deleteQuestionHandler = async (question) => {
+    setSelectedQuestion(question);
+    setConfirmMessage("Are you sure you want to delete this question?");
+    setIsConfirmModalOpened(true);
+  }
+
+  const updateQuestionHandler = (question) => {
+    setSelectedQuestion(question);
     setIsOpened(true);
   }
 
@@ -52,7 +86,8 @@ const Question = () => {
 
             <div className="grid grid-cols-1 px-2 gap-2 my-3">
               {questions &&
-                questions.map((question) => <QuestionCard key={question.id} question={question} />)}
+                questions.map((question) => <QuestionCard key={question.id} question={question} editQuestion={updateQuestionHandler} 
+                deleteQuestion={deleteQuestionHandler} />)}
             </div>
           </div>
         </div>
@@ -66,7 +101,18 @@ const Question = () => {
           </button>
         </div>
       </section>
-      <AddQuestion isOpen={isOpen} closeModal={closeModal} />
+      <AddQuestion 
+        isOpen={isOpen} 
+        question={selectedQuestion}
+        closeModal={closeModal} 
+        addQuestion={addQuestionUtil} 
+       />
+      <ConfirmModal
+        isOpen={isConfirmModalOpened}
+        closeModal={() => setIsConfirmModalOpened(false)}
+        message={confirmMessage}
+        confirmAction={deleteQuestionUtil}
+      />
     </div>
   );
 };

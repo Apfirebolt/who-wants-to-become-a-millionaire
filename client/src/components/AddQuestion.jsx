@@ -1,17 +1,36 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 
 const QuestionModal = (props) => {
   
-  const { isOpen, closeModal } = props;
+  const { isOpen, addQuestion, closeModal, question } = props;
+  const [selectedQuestion, setSelectedQuestion] = useState(null);
+
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      text: selectedQuestion ? selectedQuestion.text : "",
+      option1: selectedQuestion ? selectedQuestion.option1 : "",
+      option2: selectedQuestion ? selectedQuestion.option2 : "",
+      option3: selectedQuestion ? selectedQuestion.option3 : "",
+      option4: selectedQuestion ? selectedQuestion.option4 : "",
+      level: selectedQuestion ? selectedQuestion.level : "",
+      answer: selectedQuestion ? selectedQuestion.answer : "",
+      hint: selectedQuestion ? selectedQuestion.hint : "",
+    },
+  });
+
+  console.log('Selected question ', selectedQuestion, question)
+
+  useEffect(() => {
+    selectedQuestion && setSelectedQuestion(question);
+  }, [question, selectedQuestion]);
 
   return (
     <>
@@ -49,7 +68,7 @@ const QuestionModal = (props) => {
                     Add New Question
                   </Dialog.Title>
                   <form
-                    onSubmit={handleSubmit((data) => dispatch(login(data)))}
+                    onSubmit={handleSubmit((data) => addQuestion(data))}
                     className="mx-auto my-3"
                   >
                     <div className="mb-4">
@@ -59,10 +78,11 @@ const QuestionModal = (props) => {
                       >
                         Question Text
                       </label>
-                      <input
+                      <textarea
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="text"
-                        type="text"
+                        rows="3"
+                        cols="30"
                         placeholder="Question Text"
                         {...register("text", { required: true })}
                       />
@@ -157,12 +177,67 @@ const QuestionModal = (props) => {
                           </p>
                         )}
                       </div>
+
+                      <div className="mb-4">
+                        <label
+                          className="block text-gray-700 text-sm font-bold mb-2"
+                          htmlFor="level"
+                        >
+                          Level
+                        </label>
+                        <input
+                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="level"
+                          type="number"
+                          placeholder="Level"
+                          {...register("level", { required: false })}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mb-4">
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="answer"
+                      >
+                        Answer
+                      </label>
+                      <textarea
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="text"
+                        rows="2"
+                        cols="30"
+                        placeholder="Answer Text"
+                        {...register("answer", { required: true })}
+                      />
+                      {errors.option1 && (
+                        <p className="text-red-500 mt-2">
+                          Answer is required.
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="mb-4">
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="hint"
+                      >
+                        Hint
+                      </label>
+                      <textarea
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="hint"
+                        rows="2"
+                        cols="30"
+                        placeholder="Hint"
+                        {...register("hint", { required: false })}
+                      />
                     </div>
 
                     <input
                       className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                       type="submit"
-                      value="Sign In"
+                      value="Add Question"
                     />
                   </form>
                 </Dialog.Panel>
@@ -178,6 +253,8 @@ const QuestionModal = (props) => {
 QuestionModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
+  addQuestion: PropTypes.func.isRequired,
+  question: PropTypes.object,
 };
 
 export default QuestionModal;
