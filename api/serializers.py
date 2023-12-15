@@ -69,6 +69,14 @@ class QuestionSerializer(serializers.ModelSerializer):
         question.save()
         return question
 
+    def validate(self, attrs):
+        if attrs['answer'] == '':
+            raise serializers.ValidationError('Answer field cannot be blank')
+        options = [attrs['option1'], attrs['option2'], attrs['option3'], attrs['option4']]
+        if attrs['answer'] not in options:
+            raise serializers.ValidationError('Answer must be one of the options')
+        return attrs
+
 
 class ListQuizSerializer(serializers.ModelSerializer):
 

@@ -18,6 +18,12 @@ const createQuestion = async (questionData, token) => {
     if (err.response.status === 401) {
       errorMessage = 'Unauthorized access, please login again.'
     }
+    if (err.response.status === 400) {
+      errorMessage = ''
+      err.response.data.non_field_errors.map((error) => {
+        errorMessage += error + '\n'
+      })
+    }
     toast.error(errorMessage)
   }
 }
