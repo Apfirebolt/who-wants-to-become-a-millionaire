@@ -1,10 +1,10 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 from . serializers import ListQuestionSerializer,  CustomUserSerializer, CustomTokenObtainPairSerializer, ListQuizSerializer \
-    , QuestionSerializer, QuizSerializer
+    , QuestionSerializer, QuizSerializer, QuizTakerSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 from accounts.models import CustomUser
-from questions.models import Question, Quiz
+from questions.models import Question, Quiz, QuizTaker
 
 
 class CreateCustomUserApiView(CreateAPIView):
@@ -65,5 +65,17 @@ class UpdateDeleteQuizApi(RetrieveUpdateDestroyAPIView):
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+    
+
+class CreateQuizTakerApi(CreateAPIView):
+    serializer_class = QuizTakerSerializer
+    model = QuizTaker
+    permission_classes = [IsAuthenticated]
+
+
+class ListQuizTakersApi(ListAPIView):
+    serializer_class = QuizTakerSerializer
+    queryset = QuizTaker.objects.all()
+    permission_classes = [IsAuthenticated]
 
 

@@ -1,6 +1,6 @@
 from django.urls import path
 from . views import ListCustomUsersApiView, CreateCustomUserApiView, ListQuestionsApi, ListQuizesApi, CustomTokenObtainPairView, \
-    CreateQuestionApi, CreateQuizApi, UpdateDeleteQuestionApi, UpdateDeleteQuizApi
+    CreateQuestionApi, CreateQuizApi, UpdateDeleteQuestionApi, UpdateDeleteQuizApi, CreateQuizTakerApi, ListQuizTakersApi
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
@@ -16,5 +16,6 @@ urlpatterns = [
     path('questions', ListQuestionsApi.as_view(), name='list-questions'),
     path('questions/create', CreateQuestionApi.as_view(), name='create-question'),
     path('questions/<int:pk>', UpdateDeleteQuestionApi.as_view(), name='crud-question'),
-
+    path('take-quiz', ListQuizTakersApi.as_view(), name='list-quiz-takers'),
+    path('take-quiz/create', CreateQuizTakerApi.as_view(), name='create-quiz-taker'),
 ]

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from accounts.models import CustomUser
-from questions.models import Question, Quiz
+from questions.models import Question, Quiz, QuizTaker
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -98,3 +98,15 @@ class QuizSerializer(serializers.ModelSerializer):
         quiz = super(QuizSerializer, self).create(validated_data)
         quiz.save()
         return quiz
+    
+
+class QuizTakerSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = QuizTaker
+        fields = '__all__'
+
+    def create(self, validated_data):
+        quiz_taker = super(QuizTakerSerializer, self).create(validated_data)
+        quiz_taker.save()
+        return quiz_taker
