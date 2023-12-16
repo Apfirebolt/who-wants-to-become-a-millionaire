@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 
 const QuizCard = (props) => {
@@ -45,6 +46,12 @@ const QuizCard = (props) => {
       </div>
 
       <div className="mx-auto flex justify-center mt-2 px-3 py-2">
+        <Link
+          to={`/take-quiz/${quiz.id}`}
+          className="block mx-1 bg-gray-200 border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto"
+        >
+          Take Quiz
+        </Link>
         <button
           onClick={deleteQuizutil}
           className="block mx-1 bg-gray-200 border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto"

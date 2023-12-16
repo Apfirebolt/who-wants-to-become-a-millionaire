@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { getQuizes, addQuiz, deleteQuiz, updateQuiz } from "../features/quiz/quizSlice";
 import { createQuestion } from "../features/question/questionSlice";
 import Loader from "../components/Loader";
@@ -110,12 +111,6 @@ const Quiz = () => {
         </div>
 
         <div className="mx-auto flex justify-center mt-2 px-3 py-2">
-          <a
-            href="#"
-            className="block mx-1 bg-gray-200 border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto"
-          >
-            Take Quiz
-          </a>
           <button
             onClick={uploadQuiz}
             className="block mx-1 bg-gray-200 border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto"

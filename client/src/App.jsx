@@ -28,8 +28,8 @@ const App = () => {
         <Route path="/quiz" element={<PrivateRoute />}>
           <Route path="/quiz" element={<Quiz />} />
         </Route>
-        <Route path="/take-quiz" element={<PrivateRoute />}>
-          <Route path="/take-quiz" element={<TakeQuiz />} />
+        <Route path="/take-quiz/:id" element={<PrivateRoute />}>
+          <Route path="/take-quiz/:id" element={<TakeQuiz />} />
         </Route>
       </Routes>
       <Footer />

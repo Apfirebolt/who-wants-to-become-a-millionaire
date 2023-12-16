@@ -46,6 +46,7 @@ class UpdateDeleteQuestionApi(RetrieveUpdateDestroyAPIView):
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
     
+    
 class ListQuizesApi(ListAPIView):
     serializer_class = ListQuizSerializer
     queryset = Quiz.objects.all()
@@ -67,6 +68,11 @@ class UpdateDeleteQuizApi(RetrieveUpdateDestroyAPIView):
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+    
+    def get(self, request, *args, **kwargs):
+        # use different serializer 
+        self.serializer_class = ListQuizSerializer
+        return super().get(request, *args, **kwargs)
     
 
 class CreateQuizTakerApi(CreateAPIView):
