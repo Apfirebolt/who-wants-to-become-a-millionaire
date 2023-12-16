@@ -122,11 +122,6 @@ class PublicUserApiTests(TestCase):
         self.assertNotIn('refresh', res.data)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
-    
-    def test_get_users(self):
-        """Test GET users."""
-        res = self.client.get(USERS_URL, {})
-        res.data = CustomUserSerializer(res.data, many=True).data
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
+
 
    

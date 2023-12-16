@@ -10,10 +10,12 @@ from questions.models import Question, Quiz, QuizTaker
 class CreateCustomUserApiView(CreateAPIView):
     serializer_class = CustomUserSerializer
     queryset = CustomUser.objects.all()
+    permission_classes = []
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     # Replace the serializer with your custom
     serializer_class = CustomTokenObtainPairSerializer
+    permission_classes = []
 
 
 class ListCustomUsersApiView(ListAPIView):

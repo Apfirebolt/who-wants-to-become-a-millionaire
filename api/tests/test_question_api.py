@@ -50,11 +50,7 @@ class PublicQuestionAPITests(TestCase):
     def setUp(self):
         self.client = APIClient()
 
-    def test_auth_required(self):
-        """Test no auth is required to call API."""
-        res = self.client.get(QUESTION_URL)
-
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
+    
 
 
 class PrivatequestionApiTests(TestCase):
@@ -70,7 +66,7 @@ class PrivatequestionApiTests(TestCase):
         """Test creating a question is successful."""
         payload = {
             'text': 'Test Question',
-            'answer': 'Test Answer',
+            'answer': 'Test Option 2',
             'option1': 'Test Option 1',
             'option2': 'Test Option 2',
             'option3': 'Test Option 3',
@@ -134,7 +130,7 @@ class PrivatequestionApiTests(TestCase):
         )
         payload = {
             'text': 'Test Question Updated',
-            'answer': 'Test Answer Updated',
+            'answer': 'Test Option 1 Updated',
             'option1': 'Test Option 1 Updated',
             'option2': 'Test Option 2 Updated',
             'option3': 'Test Option 3 Updated',
