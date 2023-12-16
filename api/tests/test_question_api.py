@@ -12,10 +12,6 @@ from questions.models import (
     Question
 )
 
-from api.serializers import (
-    QuestionSerializer
-)
-
 CREATE_QUESTION_URL = reverse('api:create-question')
 QUESTION_URL = reverse('api:list-questions')
 
@@ -43,17 +39,8 @@ def create_user(**params):
     """Create and return a new user."""
     return get_user_model().objects.create_user(**params)
 
-
-class PublicQuestionAPITests(TestCase):
-    """Test unauthenticated API requests."""
-
-    def setUp(self):
-        self.client = APIClient()
-
     
-
-
-class PrivatequestionApiTests(TestCase):
+class PrivateQuestionApiTests(TestCase):
     """Test authenticated API requests."""
 
     def setUp(self):
@@ -147,5 +134,21 @@ class PrivatequestionApiTests(TestCase):
         self.assertEqual(question.option3, payload['option3'])
         self.assertEqual(question.option4, payload['option4'])
         self.assertEqual(question.level, payload['level'])
+
+    def test_create_question_fail_invalid_data(self):
+        """Test creating a question is unsuccessful for invalid data."""
+        payload = {
+            'text': 'Test Question',
+            'answer': 'Test Option',
+            'option1': 'Test Option 1',
+            'option2': 'Test Option 2',
+            'option3': 'Test Option 3',
+            'option4': 'Test Option 4',
+            'level': 1
+        }
+        res = self.client.post(CREATE_QUESTION_URL, payload)
+        # print('Res after test case ', res.data)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
 
     
