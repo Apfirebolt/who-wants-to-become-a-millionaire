@@ -26,8 +26,6 @@ const QuestionModal = (props) => {
     },
   });
 
-  console.log('Selected question ', selectedQuestion, question)
-
   useEffect(() => {
     selectedQuestion && setSelectedQuestion(question);
   }, [question, selectedQuestion]);

@@ -11,7 +11,9 @@ const addQuiz = async (quizData, token) => {
       },
     }
     const response = await axios.post(API_URL + '/create', quizData, config)
-  
+    if (response.status === 200) {
+      toast.success('Quiz created successfully')
+    }
     return response.data
   } catch (err) {
     let errorMessage = 'Something went wrong'
@@ -72,7 +74,10 @@ const updateQuiz = async (data, token) => {
   }
 
   // Extract the ID from the data payload
-  const response = await axios.patch(API_URL + data.id, data, config)
+  const response = await axios.patch(API_URL + '/' + data.id, data, config)
+  if (response.status === 200) {
+    toast.success('Quiz updated successfully')
+  }
 
   return response.data
  } catch (err) {

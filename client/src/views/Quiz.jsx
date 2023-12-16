@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getQuizes, addQuiz, deleteQuiz } from "../features/quiz/quizSlice";
+import { getQuizes, addQuiz, deleteQuiz, updateQuiz } from "../features/quiz/quizSlice";
+import { createQuestion } from "../features/question/questionSlice";
 import Loader from "../components/Loader";
 import QuizCard from "../components/QuizCard";
 import AddQuiz from "../components/AddQuiz";
+import AddQuestion from "../components/AddQuestion";
 import ConfirmModal from "../components/ConfirmModal";
 
 
@@ -12,6 +14,7 @@ const Quiz = () => {
 
   const dispatch = useDispatch();
   const [isOpen, setIsOpened] = useState(false);
+  const [isAddQuestionModalOpened, setIsAddQuestionModalOpened] = useState(false);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
   const [isConfirmModalOpened, setIsConfirmModalOpened] = useState(false);
   const [message, setConfirmMessage] = useState("");
@@ -38,6 +41,24 @@ const Quiz = () => {
 
   const uploadQuiz = () => {
     setIsOpened(true);
+  }
+
+  const closeQuestionModal = () => {
+    setIsAddQuestionModalOpened(false)
+  }
+
+  const addQuestionUtil = async (data) => {
+    const response = await dispatch(createQuestion(data));
+    let existingQuestionIds = selectedQuiz.questions.map(question => question.id);
+    let questions = [...existingQuestionIds, response.payload.id];
+    await dispatch(updateQuiz({id: selectedQuiz.id, questions: questions}));
+    dispatch(getQuizes());
+    setIsAddQuestionModalOpened(false);
+  }
+
+  const addQuestionHandler = (quiz) => {
+    setSelectedQuiz(quiz);
+    setIsAddQuestionModalOpened(true);
   }
 
   const addQuizUtil = async (data) => {
@@ -83,7 +104,7 @@ const Quiz = () => {
 
             <div className="grid grid-cols-1 px-2 gap-2 my-3">
               {quizes &&
-                quizes.map((quiz) => <QuizCard key={quiz.id} quiz={quiz} deleteQuiz={deleteQuizHandler} />)}
+                quizes.map((quiz) => <QuizCard key={quiz.id} quiz={quiz} deleteQuiz={deleteQuizHandler} addQuestion={addQuestionHandler} />)}
             </div>
           </div>
         </div>
@@ -105,6 +126,11 @@ const Quiz = () => {
       </section>
 
       <AddQuiz isOpen={isOpen} closeModal={closeModal} addQuiz={addQuizUtil} />
+      <AddQuestion 
+        isOpen={isAddQuestionModalOpened} 
+        closeModal={closeQuestionModal} 
+        addQuestion={addQuestionUtil} 
+       />
       <ConfirmModal isOpen={isConfirmModalOpened} message={message} closeModal={closeMessageModal} confirmAction={deleteQuizUtil} />         
       {/* Featured section */}
     </div>

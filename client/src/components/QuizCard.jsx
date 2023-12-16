@@ -2,10 +2,14 @@ import PropTypes from "prop-types";
 
 
 const QuizCard = (props) => {
-  const { quiz, deleteQuiz } = props;
+  const { quiz, deleteQuiz, addQuestion } = props;
 
   const deleteQuizutil = () => {
     deleteQuiz(quiz);
+  }
+
+  const addQuestionHandler = () => {
+    addQuestion(quiz);
   }
 
   return (
@@ -47,6 +51,13 @@ const QuizCard = (props) => {
         >
           Delete Quiz
         </button>
+
+        <button
+          onClick={addQuestionHandler}
+          className="block mx-1 bg-gray-200 border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto"
+        >
+          Add Question
+        </button>
       </div>
     </div>
   );
@@ -55,6 +66,7 @@ const QuizCard = (props) => {
 QuizCard.propTypes = {
   quiz: PropTypes.object.isRequired,
   deleteQuiz: PropTypes.func.isRequired,
+  addQuestion: PropTypes.func.isRequired
 };
 
 export default QuizCard;
