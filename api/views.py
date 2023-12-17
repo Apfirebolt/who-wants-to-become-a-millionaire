@@ -1,6 +1,6 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 from . serializers import ListQuestionSerializer,  CustomUserSerializer, CustomTokenObtainPairSerializer, ListQuizSerializer \
-    , QuestionSerializer, QuizSerializer, QuizTakerSerializer
+    , QuestionSerializer, QuizSerializer, QuizTakerSerializer, QuizTakerDetailSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
@@ -96,7 +96,7 @@ class CreateQuizTakerApi(CreateAPIView):
 
 
 class ListQuizTakersApi(ListAPIView):
-    serializer_class = QuizTakerSerializer
+    serializer_class = QuizTakerDetailSerializer
     queryset = QuizTaker.objects.all()
     permission_classes = [IsAuthenticated]
 

@@ -11,6 +11,7 @@ import Register from "./views/auth/Register";
 import Question from "./views/Question";
 import Quiz from "./views/Quiz";
 import TakeQuiz from "./views/TakeQuiz";
+import MyResults from "./views/MyResults";
 
 
 const App = () => {
@@ -30,6 +31,9 @@ const App = () => {
         </Route>
         <Route path="/take-quiz/:id" element={<PrivateRoute />}>
           <Route path="/take-quiz/:id" element={<TakeQuiz />} />
+        </Route>
+        <Route path="/my-results" element={<PrivateRoute />}>
+          <Route path="/my-results" element={<MyResults />} />
         </Route>
       </Routes>
       <Footer />

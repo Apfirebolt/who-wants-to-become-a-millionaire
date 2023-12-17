@@ -108,3 +108,15 @@ class QuizTakerSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('user',)
 
+
+class QuizTakerDetailSerializer(serializers.ModelSerializer):
+
+    quiz = ListQuizSerializer(read_only=True)
+
+    class Meta:
+        model = QuizTaker
+        fields = '__all__'
+        read_only_fields = ('user',)
+
+    
+

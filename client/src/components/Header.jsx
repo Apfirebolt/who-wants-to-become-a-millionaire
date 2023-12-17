@@ -150,6 +150,15 @@ const Header = () => {
                       Sign Out
                     </button>
                   </div>
+
+                  <div className="flow-root">
+                    <Link
+                      to="/my-results"
+                      className="-m-2 p-2 block font-medium text-gray-900"
+                    >
+                      My Results
+                    </Link>
+                  </div>
                 </div>
               ) : (
                 <div className="border-t border-gray-200 py-6 px-4 space-y-6">
@@ -358,6 +367,16 @@ const Header = () => {
                         className="text-sm font-medium text-gray-700 hover:text-gray-800"
                       >
                         Quiz
+                      </Link>
+                      <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                    </div>
+
+                    <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                      <Link
+                        to="/my-results"
+                        className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                      >
+                        Results
                       </Link>
                       <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
                     </div>
