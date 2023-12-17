@@ -2,6 +2,8 @@ from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDe
 from . serializers import ListQuestionSerializer,  CustomUserSerializer, CustomTokenObtainPairSerializer, ListQuizSerializer \
     , QuestionSerializer, QuizSerializer, QuizTakerSerializer
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework import status
 from rest_framework_simplejwt.views import TokenObtainPairView
 from accounts.models import CustomUser
 from questions.models import Question, Quiz, QuizTaker
@@ -79,6 +81,18 @@ class CreateQuizTakerApi(CreateAPIView):
     serializer_class = QuizTakerSerializer
     model = QuizTaker
     permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+        
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        return Response({
+            'message': 'Quiz taken successfully',
+        }, status=status.HTTP_201_CREATED)
 
 
 class ListQuizTakersApi(ListAPIView):

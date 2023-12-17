@@ -101,12 +101,10 @@ class QuizSerializer(serializers.ModelSerializer):
     
 
 class QuizTakerSerializer(serializers.ModelSerializer):
+
     
     class Meta:
         model = QuizTaker
         fields = '__all__'
+        read_only_fields = ('user',)
 
-    def create(self, validated_data):
-        quiz_taker = super(QuizTakerSerializer, self).create(validated_data)
-        quiz_taker.save()
-        return quiz_taker

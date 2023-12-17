@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { toast } from 'react-toastify'
-const API_URL = 'http://localhost:8000/api/quiz'
+const API_URL = 'http://localhost:8000/api/take-quiz'
 
-// Create new quiz
-const addQuiz = async (quizData, token) => {
+// Create new quiz taker
+const addQuizTaker = async (quizData, token) => {
   try {
     const config = {
       headers: {
@@ -12,7 +12,7 @@ const addQuiz = async (quizData, token) => {
     }
     const response = await axios.post(API_URL + '/create', quizData, config)
     if (response.status === 200) {
-      toast.success('Quiz created successfully')
+      toast.success('Quiz submitted successfully')
     }
     return response.data
   } catch (err) {
@@ -25,7 +25,7 @@ const addQuiz = async (quizData, token) => {
 }
 
 // Get user quizes
-const getQuizes = async (token) => {
+const getQuizTakers = async (token) => {
   try {
     const config = {
       headers: {
@@ -43,8 +43,8 @@ const getQuizes = async (token) => {
   }
 }
 
-// Get single quiz
-const getQuiz = async (quizId, token) => {
+// Get single quiz taker
+const getQuizTaker = async (quizId, token) => {
   try {
     const config = {
       headers: {
@@ -64,10 +64,10 @@ const getQuiz = async (quizId, token) => {
   }
 }
 
-const questionService = {
-  addQuiz,
-  getQuiz,
-  getQuizes,
+const quizTakerService = {
+  addQuizTaker,
+  getQuizTaker,
+  getQuizTakers,
 }
 
-export default questionService
+export default quizTakerService

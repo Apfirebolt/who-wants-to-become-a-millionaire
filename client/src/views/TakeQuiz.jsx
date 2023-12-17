@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getQuiz } from "../features/quiz/quizSlice";
+import { addQuizTaker } from "../features/quizTaker/quizTakerSlice";
 import Loader from "../components/Loader";
 import AnswerQuestion from "../components/AnswerQuestion";
 
 const TakeQuiz = () => {
   const { quiz, isLoading } = useSelector((state) => state.quiz);
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [score, setScore] = useState(0);
 
   const dispatch = useDispatch();
   const params = useParams();
@@ -20,9 +23,19 @@ const TakeQuiz = () => {
     return <Loader />;
   }
 
+  const submitQuiz = () => {
+    console.log(answers, score)
+    dispatch(addQuizTaker({
+      quiz: quiz.id,
+      score
+    }))
+  }
+
   const toToNextQuestion = () => {
-    if (currentQuestion === quiz.questions.length - 1) {
+    if (currentQuestion < quiz.questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
+    } else {
+      submitQuiz();
     }
   }
 
@@ -30,6 +43,16 @@ const TakeQuiz = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
     }
+  }
+
+  const handleAnswer = (answer) => {
+    const newAnswers = {...answers};
+    newAnswers[currentQuestion] = answer;
+    setAnswers(newAnswers);
+    if (answer === quiz.questions[currentQuestion].answer) {
+      setScore(score + 100);
+    }
+    console.log(answers, score)
   }
 
   return (
@@ -42,7 +65,12 @@ const TakeQuiz = () => {
         </div>
       </div>
       {quiz.questions && quiz.questions.length && (
-        <AnswerQuestion question={quiz.questions[currentQuestion]} nextQuestion={toToNextQuestion} prevQuestion={goToPreviousQuestion} />
+        <AnswerQuestion 
+          question={quiz.questions[currentQuestion]} 
+          nextQuestion={toToNextQuestion} 
+          prevQuestion={goToPreviousQuestion}
+          handleAnswer={handleAnswer}
+         />
       )}
       {quiz.questions && quiz.questions.length === 0 && (
         <div className="mx-auto max-w-xl text-center py-3">

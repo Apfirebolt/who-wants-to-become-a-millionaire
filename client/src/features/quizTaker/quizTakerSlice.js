@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import quizService from "./quizService";
+import quizTakerService from "./quizTakerService";
 
 const initialState = {
-  quizes: [],
-  quiz: {},
+  quizTakers: [],
+  quizTaker: {},
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -11,12 +11,12 @@ const initialState = {
 };
 
 // Create new quiz
-export const addQuiz = createAsyncThunk(
-  "quizes/create",
+export const addQuizTaker = createAsyncThunk(
+  "quiz-takers/create",
   async (quizData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.access;
-      return await quizService.addQuiz(quizData, token);
+      return await quizTakerService.addQuizTaker(quizData, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -31,12 +31,12 @@ export const addQuiz = createAsyncThunk(
 );
 
 // Get Multiple quizs
-export const getQuizes = createAsyncThunk(
-  "quizs/getquiz",
+export const getQuizTakers= createAsyncThunk(
+  "quiz-takers/getQuizTakers",
   async (_, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.access;
-      return await quizService.getQuizes(token);
+      return await quizTakerService.getQuizTakers(token);
     } catch (error) {
       const message =
         (error.response &&
@@ -52,12 +52,12 @@ export const getQuizes = createAsyncThunk(
 
 
 // Get single quiz
-export const getQuiz = createAsyncThunk(
+export const getQuizTaker = createAsyncThunk(
   'quizes/get',
   async (quizId, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.access
-      return await quizService.getQuiz(quizId, token)
+      return await quizTakerService.getQuizTaker(quizId, token)
     } catch (error) {
       const message =
         (error.response &&
@@ -71,8 +71,8 @@ export const getQuiz = createAsyncThunk(
   }
 )
 
-export const quizSlice = createSlice({
-  name: "quiz",
+export const quizTakerSlice = createSlice({
+  name: "quizTaker",
   initialState,
   reducers: {
     reset: () => initialState,
@@ -84,38 +84,38 @@ export const quizSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addQuiz.pending, (state) => {
+      .addCase(addQuizTaker.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(addQuiz.fulfilled, (state) => {
+      .addCase(addQuizTaker.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
       })
-      .addCase(addQuiz.rejected, (state, action) => {
+      .addCase(addQuizTaker.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(getQuizes.pending, (state) => {
+      .addCase(getQuizTakers.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getQuizes.fulfilled, (state, action) => {
+      .addCase(getQuizTakers.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.quizes = action.payload;
+        state.quizTakers = action.payload;
       })
-      .addCase(getQuizes.rejected, (state, action) => {
+      .addCase(getQuizTakers.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(getQuiz.pending, (state) => {
+      .addCase(getQuizTaker.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getQuiz.fulfilled, (state, action) => {
+      .addCase(getQuizTaker.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.quiz = action.payload;
+        state.quizTaker = action.payload;
       })
-      .addCase(getQuiz.rejected, (state, action) => {
+      .addCase(getQuizTaker.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
@@ -123,5 +123,5 @@ export const quizSlice = createSlice({
   },
 });
 
-export const { reset, resetVariables } = quizSlice.actions;
-export default quizSlice.reducer;
+export const { reset, resetVariables } = quizTakerSlice.actions;
+export default quizTakerSlice.reducer;
