@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
-
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import PrivateRoute from "./components/PrivateRoute";
+import AdminRoute from "./components/AdminRoute";
 import Home from "./views/Home";
 import Admin from "./views/Admin";
 import Login from "./views/auth/Login";
@@ -23,7 +23,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/question" element={<PrivateRoute />}>
+        <Route path="/question" element={<AdminRoute />}>
           <Route path="/question" element={<Question />} />
         </Route>
         <Route path="/quiz" element={<PrivateRoute />}>

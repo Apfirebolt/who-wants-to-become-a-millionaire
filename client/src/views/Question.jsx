@@ -30,12 +30,6 @@ const Question = () => {
     setIsOpened(false);
   }
 
-  const updateQuestionUtil = async (data) => {
-    await dispatch(updateQuestion(data));
-    dispatch(getQuestions());
-    setIsOpened(false);
-  }
-
   const deleteQuestionUtil = async () => {
     await dispatch(deleteQuestion(selectedQuestion.id));
     setIsConfirmModalOpened(false);
