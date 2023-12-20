@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 
 const AnswerQuestion = (props) => {
-  const { question, answers, currentIndex, nextQuestion, prevQuestion, handleAnswer } = props;
+  const { question, answers, currentIndex, nextQuestion, prevQuestion, handleAnswer, lastIndex } = props;
   const [selectedAnswer, setSelectedAnswer] = useState('')
 
   const handleAnswerUtil = (answer) => {
@@ -57,7 +57,7 @@ const AnswerQuestion = (props) => {
           onClick={nextQuestion}
           className="block mx-1 bg-gray-200 border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto"
         >
-          Next Question
+          {currentIndex === lastIndex - 1 ? 'Submit Quiz' : 'Next Question'}
         </button>
       </div>
     </div>
@@ -70,7 +70,8 @@ AnswerQuestion.propTypes = {
   prevQuestion: PropTypes.func.isRequired,
   handleAnswer: PropTypes.func.isRequired,
   answers: PropTypes.object.isRequired,
-  currentIndex: PropTypes.number.isRequired
+  currentIndex: PropTypes.number.isRequired,
+  lastIndex: PropTypes.number.isRequired
 };
 
 export default AnswerQuestion;

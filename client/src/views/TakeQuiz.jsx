@@ -74,6 +74,7 @@ const TakeQuiz = () => {
           handleAnswer={handleAnswer}
           answers={answers}
           currentIndex={currentQuestion}
+          lastIndex={quiz.questions.length}
          />
       )}
       {quiz.questions && quiz.questions.length === 0 && (
