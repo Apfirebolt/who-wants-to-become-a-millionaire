@@ -11,7 +11,7 @@ const addQuizTaker = async (quizData, token) => {
       },
     }
     const response = await axios.post(API_URL + '/create', quizData, config)
-    if (response.status === 200) {
+    if (response.status === 201) {
       toast.success('Quiz submitted successfully')
     }
     return response.data

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getQuiz } from "../features/quiz/quizSlice";
 import { addQuizTaker } from "../features/quizTaker/quizTakerSlice";
 import Loader from "../components/Loader";
@@ -14,6 +14,7 @@ const TakeQuiz = () => {
 
   const dispatch = useDispatch();
   const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getQuiz(params.id));
@@ -24,11 +25,13 @@ const TakeQuiz = () => {
   }
 
   const submitQuiz = () => {
-    console.log(answers, score)
     dispatch(addQuizTaker({
       quiz: quiz.id,
       score
     }))
+    .then(() => {
+      navigate('/my-results')
+    })
   }
 
   const toToNextQuestion = () => {
@@ -52,14 +55,13 @@ const TakeQuiz = () => {
     if (answer === quiz.questions[currentQuestion].answer) {
       setScore(score + 100);
     }
-    console.log(answers, score)
   }
 
   return (
     <div className="bg-gray-50">
       <div className="mx-auto max-w-screen-xl px-4 py-16 lg:flex lg:items-center">
         <div className="mx-auto max-w-xl text-center">
-          <h1 className="text-3xl font-extrabold sm:text-5xl">
+          <h1 className="text-3xl font-extrabold sm:text-5xl my-3">
             Take Quiz - {quiz.name}
           </h1>
         </div>
@@ -70,6 +72,8 @@ const TakeQuiz = () => {
           nextQuestion={toToNextQuestion} 
           prevQuestion={goToPreviousQuestion}
           handleAnswer={handleAnswer}
+          answers={answers}
+          currentIndex={currentQuestion}
          />
       )}
       {quiz.questions && quiz.questions.length === 0 && (

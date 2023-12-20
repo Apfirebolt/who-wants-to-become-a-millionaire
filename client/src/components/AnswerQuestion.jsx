@@ -1,7 +1,22 @@
 import PropTypes from "prop-types";
+import { useState, useEffect } from "react";
 
 const AnswerQuestion = (props) => {
-  const { question, nextQuestion, prevQuestion, handleAnswer } = props;
+  const { question, answers, currentIndex, nextQuestion, prevQuestion, handleAnswer } = props;
+  const [selectedAnswer, setSelectedAnswer] = useState('')
+
+  const handleAnswerUtil = (answer) => {
+    setSelectedAnswer(answer)
+    handleAnswer(answer, currentIndex)
+  }
+
+  useEffect(() => {
+    if (answers[(currentIndex.toString())]) {
+      setSelectedAnswer(answers[(currentIndex.toString())])
+    }
+  }, [currentIndex, answers])
+
+  let appliedClasses = 'block cursor-pointer border bg-gray-200 text-gray-900 border-transparent rounded-md py-3 px-8 text-base font-medium hover:bg-gray-400 sm:w-auto'
   
 
   return (
@@ -11,19 +26,19 @@ const AnswerQuestion = (props) => {
           <p className="text-3xl my-3 font-bold">{question.text}</p>
           <div className="grid sm:grid-cols-2 gap-4">
             
-            <p onClick={() => handleAnswer(question.option1)} className="block bg-gray-200 border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-400 sm:w-auto">
+            <p onClick={() => handleAnswerUtil(question.option1)}  className={selectedAnswer === question.option1 ? appliedClasses.replace("bg-gray-200 text-gray-900", "bg-green-700 text-gray-100") : appliedClasses.replace("bg-green-700 text-gray-100", "bg-gray-200 text-gray-900")}>
               {question.option1}
             </p>
 
-            <p onClick={() => handleAnswer(question.option2)} className="block bg-gray-200 border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-400 sm:w-auto">
+            <p onClick={() => handleAnswerUtil(question.option2)} className={selectedAnswer === question.option2 ? appliedClasses.replace("bg-gray-200 text-gray-900", "bg-green-700 text-gray-100") : appliedClasses.replace("bg-green-700 text-gray-100", "bg-gray-200 text-gray-900")}>
               {question.option2}
             </p>
 
-            <p onClick={() => handleAnswer(question.option3)} className="block bg-gray-200 border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-400 sm:w-auto">
+            <p onClick={() => handleAnswerUtil(question.option3)} className={selectedAnswer === question.option3 ? appliedClasses.replace("bg-gray-200 text-gray-900", "bg-green-700 text-gray-100") : appliedClasses.replace("bg-green-700 text-gray-100", "bg-gray-200 text-gray-900")}>
               {question.option3}
             </p>
 
-            <p onClick={() => handleAnswer(question.option4)} className="block bg-gray-200 border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-400 sm:w-auto">
+            <p onClick={() => handleAnswerUtil(question.option4)} className={selectedAnswer === question.option4 ? appliedClasses.replace("bg-gray-200 text-gray-900", "bg-green-700 text-gray-100") : appliedClasses.replace("bg-green-700 text-gray-100", "bg-gray-200 text-gray-900")}>
               {question.option4}
             </p>
           </div>
@@ -54,6 +69,8 @@ AnswerQuestion.propTypes = {
   nextQuestion: PropTypes.func.isRequired,
   prevQuestion: PropTypes.func.isRequired,
   handleAnswer: PropTypes.func.isRequired,
+  answers: PropTypes.object.isRequired,
+  currentIndex: PropTypes.number.isRequired
 };
 
 export default AnswerQuestion;
