@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getQuestions, createQuestion, updateQuestion, deleteQuestion } from "../features/question/questionSlice";
-import Loader from "../components/Loader";
-import QuestionCard from "../components/QuestionCard";
-import AddQuestion from "../components/AddQuestion";
-import ConfirmModal from "../components/ConfirmModal";
+import { getQuestions, createQuestion, updateQuestion, deleteQuestion } from "../../features/question/questionSlice";
+import Loader from "../../components/Loader";
+import QuestionCard from "../../components/QuestionCard";
+import AddQuestion from "../../components/AddQuestion";
+import ConfirmModal from "../../components/ConfirmModal";
 
 
 const Question = () => {
