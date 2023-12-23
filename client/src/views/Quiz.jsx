@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import {
   getQuizes,
   addQuiz,
@@ -20,8 +19,7 @@ const Quiz = () => {
 
   const dispatch = useDispatch();
   const [isOpen, setIsOpened] = useState(false);
-  const [isAddQuestionModalOpened, setIsAddQuestionModalOpened] =
-    useState(false);
+  const [isAddQuestionModalOpened, setIsAddQuestionModalOpened] = useState(false);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
   const [isConfirmModalOpened, setIsConfirmModalOpened] = useState(false);
   const [message, setConfirmMessage] = useState("");

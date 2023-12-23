@@ -10,6 +10,7 @@ const TakeQuiz = () => {
   const { quiz, isLoading } = useSelector((state) => state.quiz);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
+  const [responses, setResponses] = useState({});
   const [score, setScore] = useState(0);
 
   const dispatch = useDispatch();
@@ -27,7 +28,8 @@ const TakeQuiz = () => {
   const submitQuiz = () => {
     dispatch(addQuizTaker({
       quiz: quiz.id,
-      score
+      score,
+      responses: JSON.stringify(responses)
     }))
     .then(() => {
       navigate('/my-results')
@@ -49,9 +51,13 @@ const TakeQuiz = () => {
   }
 
   const handleAnswer = (answer) => {
+    // set answer and response
     const newAnswers = {...answers};
     newAnswers[currentQuestion] = answer;
     setAnswers(newAnswers);
+    let newResponses = {...responses};
+    newResponses[quiz.questions[currentQuestion].text] = answer;
+    setResponses(newResponses);
     if (answer === quiz.questions[currentQuestion].answer) {
       setScore(score + 100);
     }

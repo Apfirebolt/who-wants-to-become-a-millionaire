@@ -100,4 +100,9 @@ class ListQuizTakersApi(ListAPIView):
     queryset = QuizTaker.objects.all()
     permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        return QuizTaker.objects.filter(
+            user=self.request.user,  # I think you need user.username here.
+        )
+
 
