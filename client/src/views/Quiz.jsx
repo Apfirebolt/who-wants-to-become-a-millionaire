@@ -34,15 +34,15 @@ const Quiz = () => {
             aria-hidden="true"
             className="absolute inset-0 bg-gray-900 bg-opacity-50"
           />
-          <div className="relative max-w-4xl mx-auto text-center">
+          <div className="relative max-w-5xl mx-auto">
             <h2
               id="cause-heading"
-              className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl"
+              className="text-3xl font-extrabold tracking-tight text-white text-center sm:text-4xl"
             >
               Quiz
             </h2>
 
-            <div className="grid grid-cols-1 px-2 gap-2 my-3">
+            <div className="bg-gray-200 my-4 px-2">
               {quizes &&
                 quizes.map((quiz) => (
                   <QuizCard

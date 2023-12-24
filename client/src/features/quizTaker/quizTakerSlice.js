@@ -31,7 +31,7 @@ export const addQuizTaker = createAsyncThunk(
 );
 
 // Get Multiple quizs
-export const getQuizTakers= createAsyncThunk(
+export const getQuizTakers = createAsyncThunk(
   "quiz-takers/getQuizTakers",
   async (_, thunkAPI) => {
     try {
@@ -50,47 +50,45 @@ export const getQuizTakers= createAsyncThunk(
   }
 );
 
-
 // Get single quiz
 export const getQuizTaker = createAsyncThunk(
-  'quizes/get',
+  "quizes/get",
   async (quizId, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.access
-      return await quizTakerService.getQuizTaker(quizId, token)
+      const token = thunkAPI.getState().auth.user.access;
+      return await quizTakerService.getQuizTaker(quizId, token);
     } catch (error) {
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
         error.message ||
-        error.toString()
+        error.toString();
 
-      return thunkAPI.rejectWithValue(message)
+      return thunkAPI.rejectWithValue(message);
     }
   }
-)
+);
 
 // Delete single quiz
 export const deleteQuizTaker = createAsyncThunk(
-  'quizes/delete',
+  "quizes/delete",
   async (quizId, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.access
-      return await quizTakerService.deleteQuizTaker(quizId, token)
+      const token = thunkAPI.getState().auth.user.access;
+      return await quizTakerService.deleteQuizTaker(quizId, token);
     } catch (error) {
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
         error.message ||
-        error.toString()
+        error.toString();
 
-      return thunkAPI.rejectWithValue(message)
+      return thunkAPI.rejectWithValue(message);
     }
   }
-)
-
+);
 
 export const quizTakerSlice = createSlice({
   name: "quizTaker",
@@ -98,10 +96,10 @@ export const quizTakerSlice = createSlice({
   reducers: {
     reset: () => initialState,
     resetVariables: (state) => {
-      state.isError = false
-      state.isLoading = false
-      state.isSuccess = false
-    }
+      state.isError = false;
+      state.isLoading = false;
+      state.isSuccess = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -151,7 +149,7 @@ export const quizTakerSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-      })
+      });
   },
 });
 

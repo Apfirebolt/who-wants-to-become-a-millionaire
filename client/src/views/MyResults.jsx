@@ -65,7 +65,7 @@ const MyResults = () => {
 
         {quizTakers && quizTakers.length === 0 && (
           <div className="text-center">
-            <p className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+            <p className="text-2xl font-extrabold tracking-tight text-gray-700 my-3">
               No quiz results found.
             </p>
           </div>

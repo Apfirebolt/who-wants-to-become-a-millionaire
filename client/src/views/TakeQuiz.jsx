@@ -56,7 +56,8 @@ const TakeQuiz = () => {
     newAnswers[currentQuestion] = answer;
     setAnswers(newAnswers);
     let newResponses = {...responses};
-    newResponses[quiz.questions[currentQuestion].text] = answer;
+    newResponses[quiz.questions[currentQuestion].text] = [answer, quiz.questions[currentQuestion].answer];
+    console.log(responses)
     setResponses(newResponses);
     if (answer === quiz.questions[currentQuestion].answer) {
       setScore(score + 100);
