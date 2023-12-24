@@ -10,6 +10,7 @@ import { createQuestion } from "../../features/question/questionSlice";
 import { useAdminStatus } from "../../hooks/useAdmin";
 import Loader from "../../components/Loader";
 import AdminQuizCard from "../../components/QuizAdminCard";
+import AdminMenu from "../../components/AdminMenu";
 import AddQuiz from "../../components/AddQuiz";
 import AddQuestion from "../../components/AddQuestion";
 import ConfirmModal from "../../components/ConfirmModal";
@@ -19,7 +20,8 @@ const AdminQuiz = () => {
 
   const dispatch = useDispatch();
   const [isOpen, setIsOpened] = useState(false);
-  const [isAddQuestionModalOpened, setIsAddQuestionModalOpened] = useState(false);
+  const [isAddQuestionModalOpened, setIsAddQuestionModalOpened] =
+    useState(false);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
   const [isConfirmModalOpened, setIsConfirmModalOpened] = useState(false);
   const [message, setConfirmMessage] = useState("");
@@ -85,43 +87,43 @@ const AdminQuiz = () => {
   };
 
   return (
-    <div className="bg-gray-50">
-      <section aria-labelledby="cause-heading">
-        <div className="relative bg-gray-800 py-32 px-6 sm:py-40 sm:px-12 lg:px-16">
-          <div className="absolute inset-0 overflow-hidden">
-            <img
-              src="https://tailwindui.com/img/ecommerce-images/home-page-03-feature-section-full-width.jpg"
-              alt=""
-              className="w-full h-full object-center object-cover"
+    <div className="flex justify-center bg-gray-100 px-4 py-3">
+      <AdminMenu />
+      <div className="w-4/5 bg-slate-300 px-3 py-5">
+        <section aria-labelledby="cause-heading">
+          <div className="relative bg-gray-800 py-4 px-6">
+            <div className="absolute inset-0 overflow-hidden">
+              <img
+                src="https://tailwindui.com/img/ecommerce-images/home-page-03-feature-section-full-width.jpg"
+                alt=""
+                className="w-full h-full object-center object-cover"
+              />
+            </div>
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gray-900 bg-opacity-50"
             />
-          </div>
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-gray-900 bg-opacity-50"
-          />
-          <div className="relative max-w-4xl mx-auto text-center">
-            <h2
-              id="cause-heading"
-              className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl"
-            >
-              Quiz
-            </h2>
+            <div className="relative max-w-6xl mx-auto text-center">
+              <h2
+                id="cause-heading"
+                className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl"
+              >
+                Quiz
+              </h2>
 
-            <div className="grid grid-cols-1 px-2 gap-2 my-3">
-              {quizes &&
-                quizes.map((quiz) => (
-                  <AdminQuizCard
-                    key={quiz.id}
-                    quiz={quiz}
-                    deleteQuiz={deleteQuizHandler}
-                    addQuestion={addQuestionHandler}
-                  />
-                ))}
+              <div className="grid grid-cols-1 px-2 gap-2 my-3">
+                {quizes &&
+                  quizes.map((quiz) => (
+                    <AdminQuizCard
+                      key={quiz.id}
+                      quiz={quiz}
+                      deleteQuiz={deleteQuizHandler}
+                      addQuestion={addQuestionHandler}
+                    />
+                  ))}
+              </div>
             </div>
           </div>
-        </div>
-
-        {isAdminCheck ? (
           <div className="mx-auto flex justify-center mt-2 px-3 py-2">
             <button
               onClick={uploadQuiz}
@@ -130,9 +132,8 @@ const AdminQuiz = () => {
               Upload Quiz
             </button>
           </div>
-        ) : null}
-      </section>
-
+        </section>
+      </div>
       <AddQuiz isOpen={isOpen} closeModal={closeModal} addQuiz={addQuizUtil} />
       <AddQuestion
         isOpen={isAddQuestionModalOpened}
@@ -145,7 +146,6 @@ const AdminQuiz = () => {
         closeModal={closeMessageModal}
         confirmAction={deleteQuizUtil}
       />
-      {/* Featured section */}
     </div>
   );
 };

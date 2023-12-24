@@ -15,8 +15,6 @@ const Header = () => {
 
   const { user } = useSelector((state) => state.auth);
 
-  console.log("user now ", user);
-
   return (
     <div className="bg-white">
       {/* Mobile menu */}
