@@ -64,10 +64,32 @@ const getQuizTaker = async (quizId, token) => {
   }
 }
 
+// Delete a single quiz taker 
+const deleteQuizTaker = async (quizId, token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  
+    const response = await axios.delete(API_URL + '/' + quizId, config)
+  
+    return response.data
+  } catch (err) {
+    let errorMessage = 'Something went wrong'
+    if (err.response.status === 401) {
+      errorMessage = 'Unauthorized access, please login again.'
+    }
+    toast.error(errorMessage)
+  }
+}
+
 const quizTakerService = {
   addQuizTaker,
   getQuizTaker,
   getQuizTakers,
+  deleteQuizTaker
 }
 
 export default quizTakerService

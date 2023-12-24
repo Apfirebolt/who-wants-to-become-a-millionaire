@@ -106,3 +106,13 @@ class ListQuizTakersApi(ListAPIView):
         )
 
 
+class UpdateDeleteQuizTakerApi(RetrieveUpdateDestroyAPIView):
+    serializer_class = QuizTakerSerializer
+    queryset = QuizTaker.objects.all()
+    permission_classes = (IsAuthenticated,)
+    lookup_field = 'pk'
+
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+    

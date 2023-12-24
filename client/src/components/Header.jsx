@@ -2,9 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../features/auth/authSlice";
 import { Fragment, useState } from "react";
 import { Link } from "react-router-dom"; // Add router link
-import { Dialog, Popover, Transition } from "@headlessui/react";
+import { Dialog, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -15,6 +14,8 @@ const Header = () => {
   };
 
   const { user } = useSelector((state) => state.auth);
+
+  console.log("user now ", user);
 
   return (
     <div className="bg-white">
@@ -84,6 +85,15 @@ const Header = () => {
                       className="-m-2 p-2 block font-medium text-gray-900"
                     >
                       Quizes
+                    </Link>
+                  </div>
+
+                  <div className="flow-root">
+                    <Link
+                      to="/admin"
+                      className="-m-2 p-2 block font-medium text-gray-900"
+                    >
+                      Admin
                     </Link>
                   </div>
                 </div>
@@ -159,7 +169,10 @@ const Header = () => {
                       >
                         Quiz
                       </Link>
-                      <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                      <span
+                        className="h-6 w-px bg-gray-200"
+                        aria-hidden="true"
+                      />
                     </div>
 
                     <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
@@ -169,10 +182,27 @@ const Header = () => {
                       >
                         Results
                       </Link>
-                      <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                      <span
+                        className="h-6 w-px bg-gray-200"
+                        aria-hidden="true"
+                      />
                     </div>
+
+                    {user.is_admin ? (
+                      <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                        <Link
+                          to="/admin"
+                          className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                        >
+                          Admin
+                        </Link>
+                        <span
+                          className="h-6 w-px bg-gray-200"
+                          aria-hidden="true"
+                        />
+                      </div>
+                    ) : null}
                   </div>
-                  
                 ) : (
                   <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                     <Link

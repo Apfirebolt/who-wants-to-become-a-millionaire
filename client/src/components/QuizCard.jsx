@@ -8,6 +8,7 @@ const QuizCard = (props) => {
   return (
     <div className="bg-gray-100 px-2 text-center py-3">
       <h2 className="text-lg text-red-600">{quiz.name}</h2>
+      <h2 className="text-lg my-2">No of Questions : {quiz.questions.length}</h2>
       <div className="mx-auto flex justify-center mt-2 px-3 py-2">
         <Link
           to={`/take-quiz/${quiz.id}`}

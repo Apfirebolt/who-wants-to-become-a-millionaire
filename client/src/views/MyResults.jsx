@@ -1,17 +1,33 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getQuizTakers } from "../features/quizTaker/quizTakerSlice";
+import { getQuizTakers, deleteQuizTaker } from "../features/quizTaker/quizTakerSlice";
 import Loader from "../components/Loader";
+import ConfirmModal from "../components/ConfirmModal";
 import QuizResult from "../components/QuizResult";
 
 const MyResults = () => {
   const { quizTakers, isLoading } = useSelector((state) => state.quizTaker);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [confirmMessage, setConfirmMessage] = useState("");
+  const [selectedQuizTaker, setSelectedQuizTaker] = useState(null);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getQuizTakers());
   }, [dispatch]);
+
+  const deleteQuizTakerHandler = (quiz) => {
+    setSelectedQuizTaker(quiz);
+    setConfirmMessage("Deleting quiz result..." + quiz.quiz.name);
+    setIsConfirmModalOpen(true);
+  }
+
+  const deleteQuizUtil = async () => {  
+    await dispatch(deleteQuizTaker(selectedQuizTaker.id));
+    dispatch(getQuizTakers());
+    setIsConfirmModalOpen(false);
+  }
 
   if (isLoading) {
     return <Loader />;
@@ -44,7 +60,7 @@ const MyResults = () => {
         {quizTakers &&
           quizTakers.length > 0 &&
           quizTakers.map((quizTaker) => (
-            <QuizResult key={quizTaker.id} quizTaker={quizTaker} />
+            <QuizResult key={quizTaker.id} quizTaker={quizTaker} deleteQuizTaker={deleteQuizTakerHandler} />
           ))}
 
         {quizTakers && quizTakers.length === 0 && (
@@ -55,6 +71,13 @@ const MyResults = () => {
           </div>
         )}
       </section>
+
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        closeModal={() => setIsConfirmModalOpen(false)}
+        message={confirmMessage}
+        confirmAction={deleteQuizUtil}
+      />
     </div>
   );
 };
