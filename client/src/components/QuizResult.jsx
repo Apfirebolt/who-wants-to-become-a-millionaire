@@ -6,9 +6,11 @@ const QuizResult = (props) => {
   const { quizTaker, deleteQuizTaker } = props;
   const [responses, setResponses] = useState({});
 
+  const correctAnswerClasses = 'text-green-600 font-semibold text-lg';
+  const wrongAnswerClasses = 'text-red-600 font-semibold text-lg';
+
   useEffect(() => {
     if (quizTaker && quizTaker.responses) {
-      console.log(JSON.parse(quizTaker.responses));
       setResponses(JSON.parse(quizTaker.responses));
     }
   }, [quizTaker]);
@@ -44,13 +46,13 @@ const QuizResult = (props) => {
         {Object.keys(responses).map((item, index) => (
           <div
             key={index}
-            className="grid grid-cols-3 bg-purple-500 px-4 py-3 text-gray-100 gap-4"
+            className="grid grid-cols-3 bg-gray-900 px-4 py-3 text-gray-100 gap-4"
           >
             <div>
               <p>Question : {item}</p>
             </div>
             <div>
-              <p>Your Answer : {responses[item][0]}</p>
+              <p className={responses[item][0] === responses[item][1] ? correctAnswerClasses : wrongAnswerClasses}>Your Answer : {responses[item][0]}</p>
             </div>
             <div>
               <p>Correct Answer : {responses[item][1]}</p>

@@ -8,7 +8,6 @@ const QuestionModal = (props) => {
   const { isOpen, addQuestion, closeModal, question } = props;
   const [selectedQuestion, setSelectedQuestion] = useState(null);
 
-
   const {
     register,
     handleSubmit,

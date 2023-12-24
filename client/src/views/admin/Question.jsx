@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getQuestions, createQuestion, updateQuestion, deleteQuestion } from "../../features/question/questionSlice";
+import { getQuestions, createQuestion, deleteQuestion } from "../../features/question/questionSlice";
 import Loader from "../../components/Loader";
 import QuestionCard from "../../components/QuestionCard";
+import AdminMenu from "../../components/AdminMenu";
 import AddQuestion from "../../components/AddQuestion";
 import ConfirmModal from "../../components/ConfirmModal";
 
@@ -56,9 +57,11 @@ const Question = () => {
   }
 
   return (
-    <div className="bg-gray-50">
+    <div className="flex justify-center bg-gray-100 px-4 py-3">
+      <AdminMenu />
+      <div className="w-4/5 bg-slate-300 px-3 py-5">
       <section aria-labelledby="cause-heading">
-        <div className="relative bg-gray-800 py-32 px-6 sm:py-40 sm:px-12 lg:px-16">
+        <div className="relative bg-gray-800 py-4 px-6">
           <div className="absolute inset-0 overflow-hidden">
             <img
               src="https://tailwindui.com/img/ecommerce-images/home-page-03-feature-section-full-width.jpg"
@@ -78,7 +81,7 @@ const Question = () => {
               Questions
             </h2>
 
-            <div className="grid grid-cols-1 px-2 gap-2 my-3">
+            <div className="grid grid-cols-1 px-2 gap-1 my-3">
               {questions &&
                 questions.map((question) => <QuestionCard key={question.id} question={question} editQuestion={updateQuestionHandler} 
                 deleteQuestion={deleteQuestionHandler} />)}
@@ -95,6 +98,7 @@ const Question = () => {
           </button>
         </div>
       </section>
+      </div>
       <AddQuestion 
         isOpen={isOpen} 
         question={selectedQuestion}
@@ -109,6 +113,7 @@ const Question = () => {
       />
     </div>
   );
+
 };
 
 export default Question;
