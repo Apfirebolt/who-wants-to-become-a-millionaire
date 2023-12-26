@@ -113,6 +113,10 @@ class QuizTakerSerializer(serializers.ModelSerializer):
 class QuizTakerDetailSerializer(serializers.ModelSerializer):
 
     quiz = ListQuizSerializer(read_only=True)
+    username = serializers.SerializerMethodField()
+
+    def get_username(self, obj):
+        return obj.user.email
 
     class Meta:
         model = QuizTaker

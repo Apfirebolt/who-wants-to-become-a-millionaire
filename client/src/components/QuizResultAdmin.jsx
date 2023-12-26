@@ -27,6 +27,10 @@ const QuizResultAdmin = (props) => {
             Quiz Attempted at {moment(quizTaker.createdAt).format("LLL")}
           </p>
 
+          <p className="text-blue-600">
+            Quiz Attempted By <span className="text-blue-800 font-serif font-semibold">{quizTaker.username}</span>
+          </p>
+
           <p className="text-blue-600 font-semibold text-lg">
             Score : {quizTaker.score}
           </p>
