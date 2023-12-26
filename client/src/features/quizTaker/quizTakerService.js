@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { toast } from 'react-toastify'
 const API_URL = 'http://localhost:8000/api/take-quiz'
+import authService from '../auth/authService'
 
 // Create new quiz taker
 const addQuizTaker = async (quizData, token) => {
@@ -38,6 +39,7 @@ const getQuizTakers = async (token) => {
     let errorMessage = 'Something went wrong'
     if (err.response.status === 401) {
       errorMessage = 'Unauthorized access, please login again.'
+      authService.logout()
     }
     toast.error(errorMessage)
   }

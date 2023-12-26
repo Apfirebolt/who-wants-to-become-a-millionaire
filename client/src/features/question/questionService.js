@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import authService from '../auth/authService'
 const API_URL = 'http://localhost:8000/api/questions'
 
 // Create new question
@@ -17,6 +18,7 @@ const createQuestion = async (questionData, token) => {
     let errorMessage = 'Something went wrong'
     if (err.response.status === 401) {
       errorMessage = 'Unauthorized access, please login again.'
+      authService.logout()
     }
     if (err.response.status === 400) {
       errorMessage = ''
@@ -42,6 +44,7 @@ const getQuestions = async (token) => {
     let errorMessage = 'Something went wrong'
     if (err.response.status === 401) {
       errorMessage = 'Unauthorized access, please login again.'
+      authService.logout()
     }
     toast.error(errorMessage)
   }
@@ -63,6 +66,7 @@ const getQuestion = async (questionId, token) => {
     let errorMessage = 'Something went wrong'
     if (err.response.status === 401) {
       errorMessage = 'Unauthorized access, please login again.'
+      authService.logout()
     }
     toast.error(errorMessage)
   }
@@ -106,6 +110,8 @@ const deleteQuestion = async (questionId, token) => {
     let errorMessage = 'Something went wrong'
     if (err.response.status === 401) {
       errorMessage = 'Unauthorized access, please login again.'
+      // logout
+
     }
     toast.error(errorMessage)
   }

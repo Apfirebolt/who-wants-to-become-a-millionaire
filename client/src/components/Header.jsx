@@ -194,10 +194,6 @@ const Header = () => {
                         >
                           Admin
                         </Link>
-                        <span
-                          className="h-6 w-px bg-gray-200"
-                          aria-hidden="true"
-                        />
                       </div>
                     ) : null}
                   </div>
