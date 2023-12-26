@@ -19,7 +19,7 @@ export default defineConfig({
   build: {
     outDir: '../static/dist', // Output directory relative to Django's static directory
     manifest: true, // Generate a manifest.json file for Django
-    assetsDir: '', // Keep assets in the output directory
+    assetsDir: 'static/assets',
     emptyOutDir: true, // Clean the output directory before building
     rollupOptions: {
       input: {
