@@ -25,6 +25,28 @@ const addQuiz = async (quizData, token) => {
   }
 }
 
+// Create new randomquiz
+const addRandomQuiz = async (quizData, token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+    const response = await axios.post(API_URL + '/create-random', quizData, config)
+    if (response.status === 200) {
+      toast.success('Random Quiz created successfully')
+    }
+    return response.data
+  } catch (err) {
+    let errorMessage = 'Something went wrong'
+    if (err.response.status === 401) {
+      errorMessage = 'Unauthorized access, please login again.'
+    }
+    toast.error(errorMessage)
+  }
+}
+
 // Get user quizes
 const getQuizes = async (token) => {
   try {
@@ -114,6 +136,7 @@ const deleteQuiz = async (quizId, token) => {
 
 const questionService = {
   addQuiz,
+  addRandomQuiz,
   getQuiz,
   updateQuiz,
   deleteQuiz,

@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   getQuizes,
   addQuiz,
+  addRandomQuiz,
   deleteQuiz,
   updateQuiz,
 } from "../../features/quiz/quizSlice";
 import { createQuestion } from "../../features/question/questionSlice";
-import { useAdminStatus } from "../../hooks/useAdmin";
 import Loader from "../../components/Loader";
 import AdminQuizCard from "../../components/QuizAdminCard";
 import AdminMenu from "../../components/AdminMenu";
@@ -20,6 +20,7 @@ const AdminQuiz = () => {
 
   const dispatch = useDispatch();
   const [isOpen, setIsOpened] = useState(false);
+  const [randomQuiz, setRandomQuiz] = useState(false);
   const [isAddQuestionModalOpened, setIsAddQuestionModalOpened] =
     useState(false);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
@@ -29,8 +30,6 @@ const AdminQuiz = () => {
   useEffect(() => {
     dispatch(getQuizes());
   }, [dispatch]);
-
-  const { isAdminCheck } = useAdminStatus();
 
   if (isLoading) {
     return <Loader />;
@@ -46,7 +45,13 @@ const AdminQuiz = () => {
 
   const uploadQuiz = () => {
     setIsOpened(true);
+    setRandomQuiz(false);
   };
+
+  const createRandomQuiz = () => {
+    setRandomQuiz(true);
+    setIsOpened(true);
+  }
 
   const closeQuestionModal = () => {
     setIsAddQuestionModalOpened(false);
@@ -73,6 +78,12 @@ const AdminQuiz = () => {
     dispatch(getQuizes());
     setIsOpened(false);
   };
+
+  const addRandomQuizUtil = async (data) => {
+    await dispatch(addRandomQuiz(data));
+    dispatch(getQuizes());
+    setIsOpened(false);
+  }
 
   const deleteQuizUtil = async () => {
     await dispatch(deleteQuiz(selectedQuiz.id));
@@ -131,10 +142,16 @@ const AdminQuiz = () => {
             >
               Upload Quiz
             </button>
+            <button
+              onClick={createRandomQuiz}
+              className="block mx-1 bg-gray-200 border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto"
+            >
+              Create Random Quiz
+            </button>
           </div>
         </section>
       </div>
-      <AddQuiz isOpen={isOpen} closeModal={closeModal} addQuiz={addQuizUtil} />
+      <AddQuiz isOpen={isOpen} closeModal={closeModal} addQuiz={randomQuiz ? addRandomQuizUtil : addQuizUtil} />
       <AddQuestion
         isOpen={isAddQuestionModalOpened}
         closeModal={closeQuestionModal}

@@ -30,6 +30,26 @@ export const addQuiz = createAsyncThunk(
   }
 );
 
+// Create new random quiz
+export const addRandomQuiz = createAsyncThunk(
+  "quizes/create-random",
+  async (quizData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.access;
+      return await quizService.addRandomQuiz(quizData, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 // Get Multiple quizs
 export const getQuizes = createAsyncThunk(
   "quizs/getquiz",
@@ -132,6 +152,18 @@ export const quizSlice = createSlice({
         state.isSuccess = true;
       })
       .addCase(addQuiz.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(addRandomQuiz.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addRandomQuiz.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(addRandomQuiz.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

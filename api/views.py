@@ -116,3 +116,33 @@ class UpdateDeleteQuizTakerApi(RetrieveUpdateDestroyAPIView):
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
     
+
+class ListRandomQuestionsApi(ListAPIView):
+    serializer_class = ListQuestionSerializer
+    queryset = Question.objects.all()
+    permission_classes = []
+
+    def get_queryset(self):
+        # return 15 random questions 
+        return Question.objects.order_by('?')[:15]
+    
+
+class CreateQuizFromRandomQuestionsApi(CreateAPIView):
+
+    serializer_class = QuizSerializer
+    model = Quiz
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        # get the questions from the request 
+        questions = Question.objects.order_by('?')[:15]
+        # create a quiz 
+        quiz = Quiz.objects.create(
+            name=request.data['name'],
+        )
+        # add questions to the quiz 
+        for question in questions:
+            quiz.questions.add(question)
+        return Response({
+            'message': 'Quiz created successfully',
+        }, status=status.HTTP_201_CREATED)
