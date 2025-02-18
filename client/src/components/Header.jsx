@@ -52,8 +52,8 @@ const Header = () => {
                   className="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400"
                   onClick={() => setOpen(false)}
                 >
-                  <span className="sr-only">Close menu</span>
                   <XIcon className="h-6 w-6" aria-hidden="true" />
+                  <span className="sr-only">Close menu</span>
                 </button>
               </div>
 
@@ -142,8 +142,8 @@ const Header = () => {
                 className="bg-white p-2 rounded-md text-gray-400 lg:hidden"
                 onClick={() => setOpen(true)}
               >
-                <span className="sr-only">Open menu</span>
                 <MenuIcon className="h-6 w-6" aria-hidden="true" />
+                <span className="sr-only">Open menu</span>
               </button>
 
               {/* Logo */}

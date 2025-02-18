@@ -22,6 +22,9 @@ const register = async (userData) => {
     if (err.response.status === 400) {
       errorMessage = err.response.data.detail;
     }
+    if (err.response.status === 409) {
+      errorMessage = err.response.data.detail;
+    }
     toast.error(errorMessage);
   }
 };
@@ -42,6 +45,9 @@ const login = async (userData) => {
       errorMessage = err.response.data.detail;
     }
     if (err.response.status === 404) {
+      errorMessage = err.response.data.detail;
+    }
+    if (err.response.status === 401) {
       errorMessage = err.response.data.detail;
     }
     toast.error(errorMessage);

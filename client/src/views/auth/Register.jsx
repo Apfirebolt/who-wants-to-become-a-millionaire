@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import moneyImage from "../../assets/money.jpeg";
 import { register as registerFunc, reset } from "../../features/auth/authSlice";
 
 const Register = () => {
@@ -34,16 +35,15 @@ const Register = () => {
   return (
     <div className="bg-white container mx-auto my-3">
       <section aria-labelledby="features-heading" className="relative">
-        <div className="aspect-w-3 aspect-h-2 overflow-hidden sm:aspect-w-5 lg:aspect-none lg:absolute lg:w-1/2 lg:h-full lg:pr-4 xl:pr-16">
-          <img
-            src="https://tailwindui.com/img/ecommerce-images/confirmation-page-01-hero.jpg"
-            alt="Black leather journal with silver steel disc binding resting on wooden shelf with machined steel pen."
-            className="h-full w-full object-center object-cover lg:h-full lg:w-full"
-          />
-        </div>
-
         <div className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:pb-32 sm:px-6 lg:max-w-7xl lg:pt-32 lg:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8">
-          <div className="lg:col-start-2">
+          <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+            <img
+              className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+              src={moneyImage}
+              alt=""
+            />
+          </div>
+          <div>
             <h2
               id="features-heading"
               className="font-medium text-gray-500 text-lg"
@@ -115,7 +115,7 @@ const Register = () => {
                     <p className="text-red-500 mt-1">Password is required.</p>
                   )}
                 </div>
-                
+
                 <div className="mb-2">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
