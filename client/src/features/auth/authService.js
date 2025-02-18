@@ -10,6 +10,8 @@ const register = async (userData) => {
     if (response.data) {
       localStorage.setItem("user", JSON.stringify(response.data));
       toast.success("Registered successfully");
+      // redirect to login
+      window.location.href = "/login";
     }
     return response.data;
   } catch (err) {

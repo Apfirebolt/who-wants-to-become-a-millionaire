@@ -30,16 +30,18 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'http://localhost:8000',
     'localhost',
+    'http://localhost:3000'
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
-ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "localhost", 
+# CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',  # Allow requests from this specific origin
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1", 
+    "http://127.0.0.1",
+    'http://localhost:3000' 
 ]
 CORS_ALLOW_CREDENTIALS = False
 
@@ -67,6 +69,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
+    # add middleware here from questions middleware.py
+    "questions.middleware.RequestLoggingMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
