@@ -3,7 +3,6 @@ import { logout } from "../features/auth/authSlice";
 import { Fragment, useState } from "react";
 import { Link } from "react-router-dom"; // Add router link
 import { Dialog, Transition } from "@headlessui/react";
-import { MenuIcon, XIcon } from "@heroicons/react/outline";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -53,7 +52,6 @@ const Header = () => {
                   onClick={() => setOpen(false)}
                 >
                   <span className="sr-only">Close menu</span>
-                  <XIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
               </div>
 
@@ -143,7 +141,6 @@ const Header = () => {
                 onClick={() => setOpen(true)}
               >
                 <span className="sr-only">Open menu</span>
-                <MenuIcon className="h-6 w-6" aria-hidden="true" />
               </button>
 
               {/* Logo */}
